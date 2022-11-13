@@ -5,20 +5,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t wemistic/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t wemistic22/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true wemistic/react-test npm test
+  - docker run -e CI=true wemistic22/react-test npm test
 
 after_success:
-  - docker build -t wemistic/multi-client ./client
-  - docker build -t wemistic/multi-nginx ./nginx
-  - docker build -t wemistic/multi-server ./server
-  - docker build -t wemistic/multi-worker ./worker
+  - docker build -t wemistic22/multi-client ./client
+  - docker build -t wemistic22/multi-nginx ./nginx
+  - docker build -t wemistic22/multi-server ./server
+  - docker build -t wemistic22/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push wemistic/multi-client
-  - docker push wemistic/multi-nginx
-  - docker push wemistic/multi-server
-  - docker push wemistic/multi-worker
+  - docker push wemistic22/multi-client
+  - docker push wemistic22/multi-nginx
+  - docker push wemistic22/multi-server
+  - docker push wemistic22/multi-worker
