@@ -5,21 +5,28 @@ services:
   - docker
 
 before_install:
-  - docker build -t 968340/multi-docker/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t 968340/wemistic/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true 968340/multi-docker/react-test npm test
+  - docker run -e CI=true 968340/wemistic/react-test npm test
 
 after_success:
-  - docker build -t 968340/multi-docker/multi-client ./client
-  - docker build -t 968340/multi-docker/multi-nginx ./nginx
-  - docker build -t 968340/multi-docker/multi-server ./server
-  - docker build -t 968340/multi-docker/multi-worker ./worker
+  - docker build -t 968340/wemistic:multi-client ./client
+  - docker build -t 968340/wemistic:multi-nginx ./nginx
+  - docker build -t 968340/wemistic:multi-server ./server
+  - docker build -t 968340/wemistic:multi-worker ./worker
+  #- docker build -t 968340/multi-docker/multi-client ./client
+  #- docker build -t 968340/multi-docker/multi-nginx ./nginx
+  #- docker build -t 968340/multi-docker/multi-server ./server
+  #- docker build -t 968340/multi-docker/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push 968340/multi-docker
-  #- docker push 968340/multi-docker/multi-client
+  - docker push 968340/wemistic:multi-client
+  - docker build -t 968340/wemistic:multi-nginx
+  - docker build -t 968340/wemistic:multi-server
+  - docker build -t 968340/wemistic:multi-worker
+  #- docker pudocker build -t 968340/wemistic:multi-client 
   #- docker push 968340/multi-docker/multi-nginx
   #- docker push 968340/multi-docker/multi-server
   #- docker push 968340/multi-docker/multi-worker
